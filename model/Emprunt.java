@@ -1,40 +1,22 @@
 package model;
 
-import java.time.LocalDate;
 import enums.EmpruntStatus;
 
 public class Emprunt {
-
     private Long id;
-    private Client client;
-    private Book book;
-    private LocalDate borrowDate;
-    private LocalDate returnDate;
+    private Long userId;
+    private Long bookId;
     private EmpruntStatus status;
 
-    public Emprunt(Long id, Client client, Book book) {
+    public Emprunt(Long id, Long userId, Long bookId, EmpruntStatus status) {
         this.id = id;
-        this.client = client;
-        this.book = book;
-        this.borrowDate = LocalDate.now();
-        this.status = EmpruntStatus.EN_COURS;
+        this.userId = userId;
+        this.bookId = bookId;
+        this.status = status;
     }
 
-    public void closeEmprunt() {
-        this.returnDate = LocalDate.now();
-        this.status = EmpruntStatus.RETOURNE;
-        book.increaseQuantity();
-    }
-
-    public boolean isLate() {
-        return borrowDate.plusDays(14).isBefore(LocalDate.now());
-    }
-
-    public EmpruntStatus getStatus() {
-        return status;
-    }
-
-    public Book getBook() {
-        return book;
-    }
+    public Long getId() { return id; }
+    public Long getUserId() { return userId; }
+    public Long getBookId() { return bookId; }
+    public EmpruntStatus getStatus() { return status; }
 }

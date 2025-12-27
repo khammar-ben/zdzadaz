@@ -1,45 +1,31 @@
-import model.Book;
-import model.Client;
-import model.Category;
-import model.Emprunt;
-import repository.BookRepository;
-import repository.EmpruntRepository;
-import service.EmpruntService;
-import enums.EmpruntStatus;
+/*import model.*;
+import repository.*;
+import service.*;
 
 public class Main {
-    public static void main(String[] args) {
 
-        // Repositories
-        BookRepository bookRepo = new BookRepository();
-        EmpruntRepository empruntRepo = new EmpruntRepository();
+    public static void main(String[] args) throws Exception {
 
-        // Service
-        EmpruntService empruntService = new EmpruntService(empruntRepo);
+        CategoryRepository catRepo = new CategoryRepository();
+        BookService bookService = new BookService();
+        EmpruntService empruntService = new EmpruntService();
 
-        // Sample category and books
         Category cat = new Category(1L, "Programming");
-        Book book1 = new Book(1L, "Java Basics", "John Doe", "Learn Java", 2, cat);
-        Book book2 = new Book(2L, "OOP in Java", "Jane Doe", "Advanced OOP", 1, cat);
+        catRepo.save(cat);
 
-        bookRepo.save(book1);
-        bookRepo.save(book2);
+        Book book = new Book(
+                1L, "Java JDBC", "Oracle", "Exam project", 2, cat
+        );
+        bookService.addBook(book);
 
-        // Sample client
-        Client client = new Client("test@mail.com", "password123");
+        Client client = new Client("test@mail.com", "123");
+        client.setId(1L);
 
-        // Borrow books
-        Emprunt emprunt1 = empruntService.emprunterLivre(client, book1);
-        Emprunt emprunt2 = empruntService.emprunterLivre(client, book2);
+        Emprunt e = empruntService.borrow(1L, client, book);
+        empruntService.returnBook(e);
 
-        // Return one book
-        empruntService.retournerLivre(emprunt1);
-
-        // Print emprunts
-        for (Emprunt e : empruntService.getAllEmprunts()) {
-            System.out.println(
-                    e.getBook().getTitle() + " | Status: " + e.getStatus()
-            );
-        }
+        System.out.println("FULL DB PROJECT WORKS");
     }
 }
+
+*/

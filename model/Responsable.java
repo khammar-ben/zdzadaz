@@ -1,4 +1,4 @@
-package model;
+/*package model;
 
 public class Responsable extends User {
 
@@ -6,3 +6,4 @@ public class Responsable extends User {
         super(email, password);
     }
 }
+*/

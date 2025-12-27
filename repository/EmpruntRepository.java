@@ -1,18 +1,32 @@
 package repository;
 
-import model.Emprunt;
-import java.util.ArrayList;
-import java.util.List;
+import db.DBConnection;
+import enums.EmpruntStatus;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Date;
 
 public class EmpruntRepository {
 
-    private List<Emprunt> emprunts = new ArrayList<>();
+    public void borrow(Long clientId, Long bookId) throws Exception {
 
-    public void save(Emprunt emprunt) {
-        emprunts.add(emprunt);
-    }
+        String sql = """
+            INSERT INTO emprunts
+            (client_id, book_id, borrow_date, return_date, status)
+            VALUES (?, ?, ?, ?, ?)
+        """;
 
-    public List<Emprunt> findAll() {
-        return emprunts;
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setLong(1, clientId);
+            ps.setLong(2, bookId);
+            ps.setDate(3, new Date(System.currentTimeMillis()));
+            ps.setDate(4, null);
+            ps.setString(5, EmpruntStatus.EN_COURS.name());
+
+            ps.executeUpdate();
+        }
     }
 }
